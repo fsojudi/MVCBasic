@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href="~/CSS/main.css" rel="stylesheet" />
+
+
+</head>
+
+<body>
+    <header>
+        <h2>Logo</h2>
+        <nav>
+            <ul>
+                <li>
+                    <a asp-controller="Home" asp-action="About">About</a>
+                </li>
+                <li>
+                    <a asp-controller="Home" asp-action="Contact">Contact</a>
+                </li>
+                <li>
+                    <a asp-controller="Home" asp-action="Projects">Projects</a>
+                </li>
+                <li>
+                    <a asp-controller="FeverCheck" asp-action="FeverCheck">FeverCheck</a>
+                </li>
+
+
+
+            </ul>
+        </nav>
+
+    </header>
+    <div>
+        @RenderBody()
+    </div>
+    <footer>
+        <p>&copy; Fatemeh.S </p>
+    </footer>
+</body>
+</html>
