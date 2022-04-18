@@ -1,0 +1,21 @@
+﻿@{
+    ViewData["Title"] = "Doctor";
+}
+
+<h1>Doctor</h1>
+
+<form method="post">
+    <input name="temp" type="number" placeholder="Fever" />
+    <br />
+    <br />
+    <button>Click Here to see you have fever!</button>
+    <br />
+    <input type="radio" name="type" value="Celsius" checked />Celsius
+    <input type="radio" name="type" value="Fahrenheit" />Fahrenheit
+</form>
+
+@if (ViewBag.Fever != null)
+{
+    <h3>Result</h3>
+    <p>@ViewBag.Fever</p>
+}
