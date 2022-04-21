@@ -31,5 +31,10 @@ namespace MVCBasic.Models
             return result;
 
         }
+        public static int GetRandom(int max)
+        {
+            Random rnd = new Random();
+            return rnd.Next(1, max);
+        }
     }
 }

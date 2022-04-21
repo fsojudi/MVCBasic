@@ -11,8 +11,12 @@
     <button>Click Here to check your number!</button>
 </form>
 
+<form asp-action="Reset" asp-controller="GuessingGame" method="get">
+    <button class="resetbutton">Reset</button>
+    <br />
+</form>
 
-<p> The Number is @ViewBag.Result1</p>
+<p> The Number is @ViewBag.Rnd</p>
 
 @if (ViewBag.Result2 != null)
 {

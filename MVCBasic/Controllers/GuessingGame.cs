@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MVCBasic.Models;
+using Microsoft.AspNetCore.Http;
 
 namespace MVCBasic.Controllers
 {
@@ -12,21 +13,46 @@ namespace MVCBasic.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
-        }
-        [HttpPost]
-        public IActionResult Index(int guessNumber)
-        {
-            Random random = new Random();
-            int randomNumber = random.Next(100);
-            int guess = 1;
-            while ( guess<10)
+
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("intRnd")))
             {
-            ViewBag.Result1 = randomNumber;
-            ViewBag.Result2 = Game.CheckGame(guessNumber,randomNumber);
-                guess++;
+                int getRnd = Game.GetRandom(100);
+                HttpContext.Session.SetInt32("intRnd", getRnd);
+                ViewBag.Rnd = getRnd;
+            }
+            else
+            {
+                ViewBag.Rnd = HttpContext.Session.GetInt32("intRnd");
             }
             return View();
         }
-    }
+
+        [HttpGet]
+        public IActionResult Reset()
+        {
+            int getRnd = Game.GetRandom(100);
+            HttpContext.Session.SetInt32("intRnd", getRnd);
+            ViewBag.Rnd = getRnd;
+            return RedirectToAction(nameof(Index));
+        }
+
+        [HttpPost]
+         public IActionResult Index(int guessNumber)
+             {
+
+                
+                if (!(string.IsNullOrEmpty(HttpContext.Session.GetString("intRnd")) || guessNumber <= 0 || guessNumber >= 100))
+                 {
+                     int storedRnd = (int)HttpContext.Session.GetInt32("intRnd");
+                     string respons = Game.CheckGame(Convert.ToInt32(guessNumber), storedRnd);
+                     ViewBag.Result2 = respons;
+                 }
+                 else
+                 {
+                     ViewBag.Result2 = "Enter a number between 1 and 100 and Submit";
+                 }
+                 return View();
+             }
+        }
+    
 }
